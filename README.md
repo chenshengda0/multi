@@ -23,7 +23,7 @@ yarn build                                                              编译�
 
 ```
 ├── public                                                              项目入口
-│   └── mui                                                             直接在项目index.html 引入的移动端mui库 [文档](https://dev.dcloud.net.cn/mui/ui/)
+│   └── mui                                                             直接在项目index.html 引入的移动端mui库
 │       ├── css
 │       ├── fonts
 │       └── js
@@ -78,7 +78,7 @@ package.json                                                                包�
 ### package说明
 
 ```
-antd                                                                        [UI组件文档](https://ant.design/components/overview)
+antd                                                                        
 inquirer                                                                    命令行参数
 js-base64、js-cookie、jsonwebtoken                                           访问后端接口相关的库
 qrcode.react                                                                二维码生成
@@ -86,8 +86,8 @@ react-copy-to-clipboard                                                     复�
 react-router-dom                                                            路由管理
 react-typist                                                                流式打字
 styled-components                                                           内嵌css库
-tronweb                                                                     波场web3库(TRON) [文档](https://cn.developers.tron.network/reference/isaddress)
-web3                                                                        web3库(BSC、ETH) [文档](https://web3js.readthedocs.io/en/v1.7.1/)
+tronweb                                                                     波场web3库(TRON) 
+web3                                                                        web3库(BSC、ETH) 
 ```
 
 ### 风格
@@ -103,6 +103,10 @@ UI素材啥的都是在文件夹下创建static
 ### react 学习视频
 
 ```
-[REACT框架](https://www.bilibili.com/video/BV1wy4y1D7JT/?spm_id_from=333.1007.top_right_bar_window_default_collection.content.click&vd_source=bc7276ac46120ca2832695c9d18e89ad)
+1. [decloud mui 文档](https://dev.dcloud.net.cn/mui/ui/)
+2. [UI组件文档](https://ant.design/components/overview)
+3. [tronWeb](https://cn.developers.tron.network/reference/isaddress)
+4. [WEB3文档](https://web3js.readthedocs.io/en/v1.7.1/)
+5. [REACT框架](https://www.bilibili.com/video/BV1wy4y1D7JT/?spm_id_from=333.1007.top_right_bar_window_default_collection.content.click&vd_source=bc7276ac46120ca2832695c9d18e89ad)
 ```
 
