@@ -2,6 +2,7 @@ import {Component} from "react"
 import {connect} from "react-redux"
 import {withRouter} from "react-router-dom"
 import {
+    CommonLoadingComponent,
     CommonBackHeaderComponent,
 } from "Components"
 import styled from "styled-components"
@@ -10,7 +11,7 @@ import {Input} from "antd"
 import {
     createAesEnPrivateKey,
     createAesDePrivateKey,
-} from "Common/common"
+} from "Common"
 
 const {TextArea} = Input;
 
@@ -150,7 +151,7 @@ const ImportBscPrivateParent = function(SonComponent:any){
         }
 
         render(){
-            const chainData = this.props.PrivateStructStore.networks.find( (row:any)=>row.type.toLocaleUpperCase() === this.state.network.toLocaleUpperCase() ) || {};
+            const chainData = this.props.PrivateStructStore.networks.find( (row:any)=>row.type.toLocaleUpperCase() === this.state.network.toLocaleUpperCase() ) || false;
             return(
                 <>
                 {
@@ -167,7 +168,7 @@ const ImportBscPrivateParent = function(SonComponent:any){
                             }
                         )}></SonComponent>
                     ) : (
-                        <h1>加载中</h1>
+                        <CommonLoadingComponent></CommonLoadingComponent>
                     )
                 }
 

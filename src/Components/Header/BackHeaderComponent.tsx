@@ -64,7 +64,7 @@ const BackHeaderComponentParent = function(SonComponent:any){
 
     return connect(
         (store:RootStore)=>({
-            PrivateStructStore: store.PrivateStructStore
+
         }),{
 
         }
@@ -78,7 +78,6 @@ class BackHeaderComponen extends Component<any>{
             backUrl = "/",
             title = "多签钱包",
         } = this.props;
-        console.error( this.props )
         return (
             <>
                 {/* <Typist cursor={{

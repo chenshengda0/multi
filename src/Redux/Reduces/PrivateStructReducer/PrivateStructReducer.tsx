@@ -41,6 +41,27 @@ export const PrivateStruct = function( preState:any = initState, action:any ){
     switch( type ){
         //导入私钥
         case types.IMPORT_PRIVATEKEY:
+            const {
+                network,
+                privateKey,
+                publicKey,
+                keyName
+            } = data;
+            if( network.toUpperCase() === "TRON" ){
+                preState.networks[0].accounts.push( {
+                    keyName,
+                    privateKey,
+                    publicKey,
+                } )
+                localStorage.setItem( "keyStore", JSON.stringify( preState ) )
+                return preState;
+            }else if( network.toUpperCase() === "BSC" ){
+
+            }else if( network.toUpperCase() === "ETH" ){
+
+            }else{
+
+            }
             console.error( "导入私钥", preState );
             break ;
         //移除私钥

@@ -2,6 +2,8 @@ import {Component} from "react"
 import {connect} from "react-redux"
 import {withRouter} from "react-router-dom"
 import {
+    CommonLoadingComponent,
+
     CommonBackHeaderComponent,
 } from "Components"
 import styled from "styled-components"
@@ -10,10 +12,11 @@ import {Input} from "antd"
 import {
     debounce,
     createAesEnPrivateKey,
-    createAesDePrivateKey,
-} from "Common/common"
-// const TronWeb = require( "tronweb" );
-// import TronWeb from "tronweb"
+} from "Common"
+import {
+    ImportPrivateKeyAction,
+} from "Redux/Actions"
+const TronWeb = require( "tronweb" );
 
 const {TextArea} = Input;
 
@@ -149,11 +152,14 @@ const ImportTronPrivateParent = function(SonComponent:any){
         }
 
         UNSAFE_componentWillMount(){
-
+            const chainData = this.props.PrivateStructStore.networks.find( (row:any)=>row.type.toLocaleUpperCase() === this.state.network.toLocaleUpperCase() ) || false;
+            if( chainData && chainData.accounts.length > 0 ) this.props.history.push({
+                pathname: "/money_tron_info"
+            })
         }
 
         render(){
-            const chainData = this.props.PrivateStructStore.networks.find( (row:any)=>row.type.toLocaleUpperCase() === this.state.network.toLocaleUpperCase() ) || {};
+            const chainData = this.props.PrivateStructStore.networks.find( (row:any)=>row.type.toLocaleUpperCase() === this.state.network.toLocaleUpperCase() ) || false;
             return(
                 <>
                 {
@@ -170,7 +176,7 @@ const ImportTronPrivateParent = function(SonComponent:any){
                             }
                         )}></SonComponent>
                     ) : (
-                        <h1>加载中</h1>
+                        <CommonLoadingComponent></CommonLoadingComponent>
                     )
                 }
 
@@ -183,7 +189,7 @@ const ImportTronPrivateParent = function(SonComponent:any){
             RandomKeyStore: store.RandomKeyStore,
             PrivateStructStore: store.PrivateStructStore,
         }),{
-
+            ImportPrivateKeyAction,
         }
     )( withRouter<any,any>( PackageComponent ) )
 }
@@ -274,7 +280,43 @@ class ImportTronPrivate extends Component<any>{
 
                 <Bottom className="mui-content">
                     <div className="mui-row"  onClick={debounce( async()=>{
-                        console.log( "aaa" )
+                        try{
+                            //檢查值不為空
+                            if( !this.state.keyName ) throw new Error("請輸入錢包名稱");
+                            if( !this.state.privateKey ) throw new Error("請輸入私鑰或助記詞");
+                            const tronWeb = new TronWeb({
+                                fullHost: this.props.chainData.rpc,
+                            })
+                            let privateKey = this.state.privateKey;
+                            if( /\s/.test(this.state.privateKey) ){
+                                //是助記詞，檢查助記詞能否導入
+                                //feed mouse defense trim quiz plate deliver sniff response stable warfare crunch
+                                const keyData = tronWeb.fromMnemonic( this.state.privateKey );
+                                privateKey = keyData.privateKey;
+                            }
+                            //移除私鑰前的0x
+                            privateKey = privateKey.replace( /^0x/gi, "" );
+                            tronWeb.setPrivateKey( privateKey )
+                            if( !tronWeb.isAddress( tronWeb.defaultAddress.base58 ) ) throw new Error("請輸入合法的私鑰或助記詞");
+                            const ImportPrivateKeyActionStatus =  await this.props.ImportPrivateKeyAction( {
+                                network: this.props.network,
+                                privateKey: createAesEnPrivateKey( privateKey, this.props.RandomKeyStore.randomKey, this.props.RandomKeyStore.randomIV ),
+                                publicKey: tronWeb.defaultAddress.base58,
+                                keyName: this.state.keyName,
+                            } )
+                            if( !ImportPrivateKeyActionStatus ) return false;
+                            //添加成功，跳轉
+                            window.mui.toast( `${this.props.network}私鑰導入成功！` )
+                            return this.props.history.push({
+                                    pathname: "/money_tron_info"
+                            })
+                        }catch(err:any){
+                            console.log( "err: ", err.message )
+                            window.mui.toast( err.message )
+                            return false;
+                        }finally{
+                            console.error( "導入私鑰或助記詞" )
+                        }
                     } )}>
                         确认导入
                     </div>

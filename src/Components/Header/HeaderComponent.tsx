@@ -62,7 +62,7 @@ const HeaderComponentParent = function(SonComponent:any){
 
     return connect(
         (store:RootStore)=>({
-            PrivateStructStore: store.PrivateStructStore
+
         }),{
 
         }
@@ -75,7 +75,7 @@ class HeaderComponen extends Component<any>{
         const {
             title = "多签钱包",
         } = this.props;
-        console.error( this.props )
+        //console.error( this.props )
         return (
             <>
                 {/* <Typist cursor={{

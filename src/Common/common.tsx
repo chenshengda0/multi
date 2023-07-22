@@ -26,6 +26,9 @@ export const debounceBak = (fn, ms=3000)=>{
     }
 }
 
+//sleep函數
+export const sleep = ( wait:number ) => new Promise( (resolve,reject)=> setTimeout( resolve, wait ) )
+
 //加密函数
 export const createAesEnPrivateKey = (privateKey:string, AesKey:string, AesIV:string) => {
     // 私钥加密存储本地 ---1.先base58编码，2.再base64编码 3.对称加密
