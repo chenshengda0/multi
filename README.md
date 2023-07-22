@@ -109,7 +109,7 @@ UI素材啥的都是在文件夹下创建static
 2. [UI组件文档](https://ant.design/components/overview)
 3. [tronWeb](https://cn.developers.tron.network/reference/isaddress)
 4. [WEB3文档](https://web3js.readthedocs.io/en/v1.7.1/)
-5. [REACT框架]<https://www.bilibili.com/video/BV1wy4y1D7JT/?spm_id_from=333.1007.top_right_bar_window_default_collection.content.click&vd_source=bc7276ac46120ca2832695c9d18e89ad>
+5. [REACT框架]: https://www.bilibili.com/video/BV1wy4y1D7JT/?spm_id_from=333.1007.top_right_bar_window_default_collection.content.click&vd_source=bc7276ac46120ca2832695c9d18e89ad
 
 ```
 
